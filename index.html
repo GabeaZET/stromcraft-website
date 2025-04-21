@@ -1,137 +1,71 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>STROM CRAFT - Minecraft Server</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vote Minecraft</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Minecraft', sans-serif;
+      background-color: #1f1f1f;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #00ff00;
+    }
+    .vote-option {
+      background-color: #333;
+      border: 2px solid #00ff00;
+      padding: 10px;
+      margin: 10px auto;
+      width: 300px;
+      cursor: pointer;
+    }
+    .vote-option:hover {
+      background-color: #00ff00;
+      color: #000;
+    }
+    .results {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pilih Mini Game Favoritmu!</h1>
+
+  <div id="options"></div>
+
+  <div class="results" id="results"></div>
+
   <script>
-    function copyIP() {
-      navigator.clipboard.writeText('stromraft.aternos.me:50651');
-      alert('IP berhasil disalin!');
+    const options = ['Survival Games', 'Skywars', 'Bedwars', 'Build Battle', 'Hide and Seek'];
+    const votes = new Array(options.length).fill(0);
+
+    const optionsContainer = document.getElementById('options');
+    const resultsContainer = document.getElementById('results');
+
+    options.forEach((option, index) => {
+      const btn = document.createElement('div');
+      btn.className = 'vote-option';
+      btn.innerText = option;
+      btn.onclick = () => {
+        votes[index]++;
+        showResults();
+      };
+      optionsContainer.appendChild(btn);
+    });
+
+    function showResults() {
+      resultsContainer.innerHTML = '<h2>Hasil Voting:</h2>';
+      options.forEach((option, index) => {
+        resultsContainer.innerHTML += `<p>${option}: ${votes[index]} vote(s)</p>`;
+      });
     }
   </script>
-</head>
-<body class="bg-gray-900 text-white font-sans">
-
-  <!-- Main Section -->
-  <div class="min-h-screen flex flex-col items-center justify-center p-4">
-    <!-- Logo -->
-    <img src="https://i.imgur.com/ItSpR1I.png" alt="Logo STROM CRAFT" class="w-32 h-32 mb-4 rounded-full shadow-lg" />
-
-    <h1 class="text-4xl font-bold mb-2">STROM CRAFT</h1>
-    <p class="text-gray-300 mb-4">Minecraft Survival Economy - Versi 1.21.4</p>
-
-    <div class="bg-gray-800 p-4 rounded-xl shadow-lg w-full max-w-md text-center">
-      <p class="text-lg">IP Server:</p>
-      <div class="flex items-center justify-center gap-2 mt-2">
-        <span class="bg-gray-700 px-3 py-1 rounded-lg">stromraft.aternos.me:50651</span>
-        <button onclick="copyIP()" class="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-lg">Salin</button>
-      </div>
-      <a href="https://discord.gg/T9Ezj4EHwf" target="_blank" class="inline-block mt-4 bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg">Join Discord</a>
-    </div>
-
-    <div class="mt-8 text-center max-w-xl">
-      <h2 class="text-2xl font-semibold mb-2">Tentang Server</h2>
-      <p class="text-gray-300">Ayo! Join Server StromCraft dan ikuti keseruan SURVIVAL ECONOMY dan tungguin mode-mode yang asik untuk dimainkan.</p>
-    </div>
-  </div>
-
-  <!-- Shop Section -->
-  <div class="mt-12 w-full max-w-6xl">
-    <h2 class="text-3xl font-bold text-center mb-6">🛒 Toko Rank</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <div class="bg-gray-800 rounded-xl p-6 text-center shadow-lg">
-        <h3 class="text-xl font-semibold mb-2">Rank Lord</h3>
-        <p class="text-gray-300 mb-4">Dapatkan akses ke fitur VIP, Prefix Lord, dan lainnya!</p>
-        <button class="bg-yellow-500 hover:bg-yellow-600 px-6 py-2 rounded-lg">Rp15.000</button>
-      </div>
-      <div class="bg-gray-800 rounded-xl p-6 text-center shadow-lg">
-        <h3 class="text-xl font-semibold mb-2">Rank Overload</h3>
-        <p class="text-gray-300 mb-4">Fitur lengkap, Fly, Repair, dan akses eksklusif lainnya!</p>
-        <button class="bg-purple-500 hover:bg-purple-600 px-6 py-2 rounded-lg">Rp30.000</button>
-      </div>
-      <div class="bg-gray-800 rounded-xl p-6 text-center shadow-lg">
-        <h3 class="text-xl font-semibold mb-2">Rank Divine</h3>
-        <p class="text-gray-300 mb-4">Akses penuh ke seluruh fitur premium dan tambahan item bulanan.</p>
-        <button class="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-lg">Rp50.000</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Leaderboard Section -->
-  <div class="mt-12 w-full max-w-6xl">
-    <h2 class="text-3xl font-bold text-center mb-6">🏆 Leaderboard</h2>
-    <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
-      <table class="min-w-full text-center">
-        <thead>
-          <tr>
-            <th class="py-2 px-4 text-lg font-semibold">#</th>
-            <th class="py-2 px-4 text-lg font-semibold">Nama Pemain</th>
-            <th class="py-2 px-4 text-lg font-semibold">Balance</th>
-            <th class="py-2 px-4 text-lg font-semibold">Poin Survival</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-gray-700">
-            <td class="py-2 px-4">1</td>
-            <td class="py-2 px-4">Pemain1</td>
-            <td class="py-2 px-4">Rp100.000</td>
-            <td class="py-2 px-4">1500</td>
-          </tr>
-          <tr class="bg-gray-600">
-            <td class="py-2 px-4">2</td>
-            <td class="py-2 px-4">Pemain2</td>
-            <td class="py-2 px-4">Rp75.000</td>
-            <td class="py-2 px-4">1400</td>
-          </tr>
-          <tr class="bg-gray-700">
-            <td class="py-2 px-4">3</td>
-            <td class="py-2 px-4">Pemain3</td>
-            <td class="py-2 px-4">Rp50.000</td>
-            <td class="py-2 px-4">1300</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Staff Registration Section -->
-  <div class="mt-12 w-full max-w-6xl">
-    <h2 class="text-3xl font-bold text-center mb-6">📋 Pendaftaran Staff</h2>
-    <div class="bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-lg">
-      <form action="#" method="POST">
-        <div class="mb-4">
-          <label for="name" class="block text-lg font-semibold mb-2">Nama Lengkap</label>
-          <input type="text" id="name" name="name" class="w-full p-3 rounded-lg bg-gray-700 text-white" required />
-        </div>
-
-        <div class="mb-4">
-          <label for="email" class="block text-lg font-semibold mb-2">Email</label>
-          <input type="email" id="email" name="email" class="w-full p-3 rounded-lg bg-gray-700 text-white" required />
-        </div>
-
-        <div class="mb-4">
-          <label for="experience" class="block text-lg font-semibold mb-2">Pengalaman (Jika Ada)</label>
-          <textarea id="experience" name="experience" class="w-full p-3 rounded-lg bg-gray-700 text-white" rows="4"></textarea>
-        </div>
-
-        <div class="mb-4">
-          <label for="reason" class="block text-lg font-semibold mb-2">Alasan Melamar</label>
-          <textarea id="reason" name="reason" class="w-full p-3 rounded-lg bg-gray-700 text-white" rows="4" required></textarea>
-        </div>
-
-        <div class="text-center">
-          <button type="submit" class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg text-lg font-semibold">Kirim Pendaftaran</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="mt-12 text-sm text-gray-500 text-center">
-    &copy; 2025 STROM CRAFT. Semua hak dilindungi.
-  </footer>
 
 </body>
 </html>
